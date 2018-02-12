@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 
 def showPlot(image):
-    plt.hist(img.ravel(), 256, [0, 256])
+    plt.hist(image.ravel(), 256, [0, 256])
     plt.show()
 
 
