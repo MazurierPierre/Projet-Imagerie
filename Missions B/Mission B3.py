@@ -9,11 +9,17 @@ COLOR4 = [255, 255, 255]
 img = cv2.imread('img/HD215497.pbm', 1)
 isize = img.shape
 
+mini = 255
+maxi = 0
 avg = 0
 all = 0
 
 for i in range(0, isize[0]):
     for j in range(0, isize[1]):
+        if img[i][j][0] > maxi:
+            maxi = img[i][j][0]
+        if img[i][j][0] < mini:
+            mini = img[i][j][0]
         all += img[i][j][0]
 
 avg = all / (i * j)
@@ -21,13 +27,13 @@ avg = all / (i * j)
 i = j = 0
 for i in range(0, isize[0]):
     for j in range(0, isize[1]):
-        if img[i][j][0] < (avg / 2):
+        if img[i][j][0] < ((avg + mini) / 2):
             img[i][j] = COLOR1
-        if img[i][j][0] > (avg * 2):
+        if img[i][j][0] > ((avg + maxi) / 2):
             img[i][j] = COLOR4
-        if img[i][j][0] < avg and img[i][j][0] >= (avg / 2):
+        if img[i][j][0] < avg and img[i][j][0] >= ((avg + mini) / 2):
             img[i][j] = COLOR2
-        if img[i][j][0] > avg and img[i][j][0] <= (avg * 2):
+        if img[i][j][0] > avg and img[i][j][0] <= ((avg + maxi) / 2):
             img[i][j] = COLOR3
 
 # Show
